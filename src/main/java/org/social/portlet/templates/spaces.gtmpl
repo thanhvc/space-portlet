@@ -1,0 +1,13 @@
+#{param name=spaces/}
+
+<% for(space in spaces) { %>
+    <span>
+       <div class="well">
+           <img class="avatar" src="${space.avatarUrl}"/>
+             <a href="${space.url}">${space.displayName}</a>
+             <div>
+             ${space.description}
+             </div>
+       </div>
+    </span>
+<% } %>
