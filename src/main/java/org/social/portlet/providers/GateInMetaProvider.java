@@ -18,8 +18,10 @@ package org.social.portlet.providers;
 
 import javax.inject.Provider;
 
+import juzu.inject.ProviderFactory;
+
 import org.exoplatform.container.PortalContainer;
-import org.juzu.impl.inject.MetaProvider;
+
 
 /**
  * Created by The eXo Platform SAS
@@ -27,7 +29,7 @@ import org.juzu.impl.inject.MetaProvider;
  *          exo@exoplatform.com
  * Mar 13, 2012  
  */
-public class GateInMetaProvider implements MetaProvider {
+public class GateInMetaProvider implements ProviderFactory {
 
   @Override
   public <T> Provider<? extends T> getProvider(final Class<T> clazz) {

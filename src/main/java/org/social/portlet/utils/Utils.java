@@ -40,8 +40,6 @@ import org.exoplatform.web.controller.metadata.DescriptorBuilder;
 import org.exoplatform.web.controller.router.Router;
 import org.exoplatform.web.controller.router.RouterConfigException;
 import org.exoplatform.web.controller.router.URIWriter;
-import org.juzu.impl.application.InternalApplicationContext;
-import org.juzu.request.RequestContext;
 import org.social.portlet.models.SpaceBean;
 
 /**

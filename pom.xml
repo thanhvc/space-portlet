@@ -16,7 +16,8 @@
     <maven.compiler.source>1.6</maven.compiler.source>
 
     <!--Define version dependencies-->
-    <org.exoplatform.portal.version>3.2.3-PLF-SNAPSHOT</org.exoplatform.portal.version>
+    <org.exoplatform.portal.version>3.2.4-PLF-SNAPSHOT</org.exoplatform.portal.version>
+    <juzu.version>0.6.0-SNAPSHOT</juzu.version>
   </properties>
 
   <dependencies>
@@ -27,32 +28,38 @@
       <scope>provided</scope>
       <version>2.0</version>
     </dependency>
+    
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <scope>provided</scope>
       <version>2.5</version>
     </dependency>
+    
     <dependency>
       <groupId>javax.inject</groupId>
       <artifactId>javax.inject</artifactId>
       <scope>provided</scope>
       <version>1</version>
     </dependency>
+    
     <dependency>
       <groupId>org.juzu</groupId>
       <artifactId>juzu-core</artifactId>
       <scope>provided</scope>
-      <version>0.4.5-SNAPSHOT</version>
+      <version>${juzu.version}</version>
     </dependency>
 
-    <!-- Dependencies for war overlay -->
     <dependency>
       <groupId>org.juzu</groupId>
-      <artifactId>juzu-overlay-gatein</artifactId>
-      <type>war</type>
-      <scope>provided</scope>
-      <version>0.4.5-SNAPSHOT</version>
+      <artifactId>juzu-builder</artifactId>
+      <version>${juzu.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-plugins-portlet</artifactId>
+      <version>${juzu.version}</version>
     </dependency>
 
     <dependency>
@@ -64,13 +71,13 @@
     <dependency>
       <groupId>org.exoplatform.social</groupId>
       <artifactId>exo.social.component.core</artifactId>
-      <version>1.2.8-SNAPSHOT</version>
+      <version>1.2.10-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.exoplatform.social</groupId>
       <artifactId>exo.social.component.common</artifactId>
-      <version>1.2.8-SNAPSHOT</version>
+      <version>1.2.10-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -97,36 +104,50 @@
     <plugins>
 
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>org.juzu</groupId>
+            <artifactId>juzu-builder</artifactId>
+            <version>${juzu.version}</version>
+          </dependency>
+        </dependencies>
         <configuration>
-          <compilerArguments>
-            <sourcepath>${project.basedir}/src/main/java</sourcepath>
-          </compilerArguments>
+          <attach>true</attach>
         </configuration>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
         <executions>
           <execution>
             <id>gatein</id>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <phase>package</phase>
             <configuration>
               <classifier>gatein</classifier>
-              <webappDirectory>${project.build.directory}/gatein</webappDirectory>
-              <overlays>
-                <overlay>
-                  <groupId>org.juzu</groupId>
-                  <artifactId>juzu-overlay-gatein</artifactId>
-                </overlay>
-              </overlays>
+              <descriptorRefs>
+                <descriptorRef>gatein</descriptorRef>
+              </descriptorRefs>
             </configuration>
+          </execution>
+          <execution>
+            <id>liferay</id>
             <goals>
-              <goal>war</goal>
+              <goal>single</goal>
             </goals>
+            <phase>package</phase>
+            <configuration>
+              <classifier>liferay</classifier>
+              <descriptorRefs>
+                <descriptorRef>liferay</descriptorRef>
+              </descriptorRefs>
+            </configuration>
           </execution>
         </executions>
+
       </plugin>
+
     </plugins>
   </build>
+
 
 </project>
