@@ -4,9 +4,9 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.exoplatform.social</groupId>
+  <groupId>org.exopaltform.social</groupId>
   <artifactId>space-portlet</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Juzu Application</name>
@@ -14,13 +14,14 @@
   <properties>
     <maven.compiler.target>1.6</maven.compiler.target>
     <maven.compiler.source>1.6</maven.compiler.source>
-
     <!--Define version dependencies-->
-    <org.exoplatform.portal.version>3.2.4-PLF-SNAPSHOT</org.exoplatform.portal.version>
+    <org.exoplatform.portal.version>3.3.0-GA</org.exoplatform.portal.version>
     <juzu.version>0.6.0-SNAPSHOT</juzu.version>
+    <org.exoplatform.social.version>4.0.0.Alpha1-SNAPSHOT</org.exoplatform.social.version>
   </properties>
 
   <dependencies>
+
     <!-- Application dependencies-->
     <dependency>
       <groupId>javax.portlet</groupId>
@@ -28,25 +29,21 @@
       <scope>provided</scope>
       <version>2.0</version>
     </dependency>
-    
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <scope>provided</scope>
       <version>2.5</version>
     </dependency>
-    
     <dependency>
       <groupId>javax.inject</groupId>
       <artifactId>javax.inject</artifactId>
       <scope>provided</scope>
       <version>1</version>
     </dependency>
-    
     <dependency>
       <groupId>org.juzu</groupId>
       <artifactId>juzu-core</artifactId>
-      <scope>provided</scope>
       <version>${juzu.version}</version>
     </dependency>
 
@@ -55,13 +52,11 @@
       <artifactId>juzu-builder</artifactId>
       <version>${juzu.version}</version>
     </dependency>
-    
     <dependency>
       <groupId>org.juzu</groupId>
       <artifactId>juzu-plugins-portlet</artifactId>
       <version>${juzu.version}</version>
     </dependency>
-
     <dependency>
       <groupId>org.exoplatform.kernel</groupId>
       <artifactId>exo.kernel.container</artifactId>
@@ -70,31 +65,27 @@
     </dependency>
     <dependency>
       <groupId>org.exoplatform.social</groupId>
-      <artifactId>exo.social.component.core</artifactId>
-      <version>1.2.10-SNAPSHOT</version>
+      <artifactId>social-component-core</artifactId>
+      <version>${org.exoplatform.social.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.exoplatform.social</groupId>
-      <artifactId>exo.social.component.common</artifactId>
-      <version>1.2.10-SNAPSHOT</version>
+      <artifactId>social-component-common</artifactId>
+      <version>${org.exoplatform.social.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.gatein.shindig</groupId>
+      <artifactId>shindig-social-api</artifactId>
+      <version>2.0.2-CP01</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.exoplatform.portal</groupId>
       <artifactId>exo.portal.component.web.controller</artifactId>
       <version>${org.exoplatform.portal.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.gatein.shindig</groupId>
-      <artifactId>shindig-social-api</artifactId>
-      <version>2.0.2</version>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.enterprise</groupId>
-      <artifactId>cdi-api</artifactId>
-      <version>1.0-SP4</version>
     </dependency>
 
   </dependencies>
@@ -104,16 +95,28 @@
     <plugins>
 
       <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <compilerArguments>
+            <sourcepath>${project.basedir}/src/main/java</sourcepath>
+          </compilerArguments>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.3</version>
         <dependencies>
           <dependency>
             <groupId>org.juzu</groupId>
             <artifactId>juzu-builder</artifactId>
-            <version>${juzu.version}</version>
+            <version>0.6.0-SNAPSHOT</version>
           </dependency>
         </dependencies>
         <configuration>
           <attach>true</attach>
+          <appendAssemblyId>false</appendAssemblyId>
         </configuration>
         <executions>
           <execution>
@@ -123,31 +126,16 @@
             </goals>
             <phase>package</phase>
             <configuration>
-              <classifier>gatein</classifier>
+              <finalName>${project.build.finalName}</finalName>
               <descriptorRefs>
                 <descriptorRef>gatein</descriptorRef>
               </descriptorRefs>
             </configuration>
           </execution>
-          <execution>
-            <id>liferay</id>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <phase>package</phase>
-            <configuration>
-              <classifier>liferay</classifier>
-              <descriptorRefs>
-                <descriptorRef>liferay</descriptorRef>
-              </descriptorRefs>
-            </configuration>
-          </execution>
         </executions>
-
       </plugin>
 
     </plugins>
   </build>
-
 
 </project>

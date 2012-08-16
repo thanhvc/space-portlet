@@ -5,25 +5,26 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd
    http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
    <portlet>
-     <portlet-name>SpaceApplication</portlet-name>
+     <portlet-name>SpacePortlet</portlet-name>
      <display-name xml:lang="EN">Space Application</display-name>
-     <portlet-class>juzu.portlet.JuzuPortlet</portlet-class>
+     <portlet-class>org.social.portlet.PortletPortlet</portlet-class>
      <init-param>
        <name>juzu.run_mode</name>
-       <value>prod</value>
+       <value>dev</value>
+     </init-param>
+     <init-param>
+       <name>juzu.src_path</name>
+       <value>/home/hanhvq/java/eXoProjects/others/space-portlet/src/main/java</value>
      </init-param>
      <init-param>
        <name>juzu.inject</name>
        <value>weld</value>
-       <!--
-       <value>spring</value>
-       -->
      </init-param>
      <supports>
        <mime-type>text/html</mime-type>
      </supports>
      <portlet-info>
-       <title>Space Application</title>
+       <title>Space Portlet</title>
      </portlet-info>
    </portlet>
 </portlet-app>
