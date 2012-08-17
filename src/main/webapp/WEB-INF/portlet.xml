@@ -10,12 +10,9 @@
      <portlet-class>org.social.portlet.PortletPortlet</portlet-class>
      <init-param>
        <name>juzu.run_mode</name>
-       <value>dev</value>
+       <value>prod</value>
      </init-param>
-     <init-param>
-       <name>juzu.src_path</name>
-       <value>/home/hanhvq/java/eXoProjects/others/space-portlet/src/main/java</value>
-     </init-param>
+     
      <init-param>
        <name>juzu.inject</name>
        <value>weld</value>
